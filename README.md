@@ -4,9 +4,11 @@ Product crud with spring mvc, spring security, JPA, thymeleaf and bootstrap
 # login page:
 http://localhost:8080/login
 
-users:
-username: admin  password: @123
-username: reader password: @456
+users:</br></br>
+username: admin </br>
+password: @123 </br>
+username: reader </br> 
+password: @456 </br>
 
 # product crud page:
 http://localhost:8080/products
