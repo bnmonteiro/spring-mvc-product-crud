@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Add this line -->
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Product List</h1>
+    <form class="form-inline mb-4">
+        <input type="text" name="keyword" class="form-control mr-2" placeholder="Search by name" th:value="${keyword}" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <a href="/products/new" class="btn btn-success mb-4">Add New Product</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <a th:href="@{/products(sortField='id', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'}, keyword=${keyword})}">
+                        ID
+                        <span th:if="${sortField == 'id'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/products(sortField='name', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'}, keyword=${keyword})}">
+                        Name
+                        <span th:if="${sortField == 'name'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                    </a>
+                </th>
+
+                <th>
+                    <a th:href="@{/products(sortField='description', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'}, keyword=${keyword})}">
+                        Description
+                        <span th:if="${sortField == 'description'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/products(sortField='price', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'}, keyword=${keyword})}">
+                        Price
+                        <span th:if="${sortField == 'price'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/products(sortField='available', sortDir=${sortDir == 'asc' ? 'desc' : 'asc'}, keyword=${keyword})}">
+                        Available
+                        <span th:if="${sortField == 'available'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                    </a>
+                </th>
+
+                <th>Category Path</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                <input type="checkbox" th:checked="${product.available}" disabled />
+            </td>
+            <td th:text="${product.category.path}"></td>
+            <td>
+                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
