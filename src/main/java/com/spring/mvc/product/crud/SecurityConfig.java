@@ -28,7 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//            .antMatchers("/products/**").hasRole("SUPERUSER")
                 .antMatchers("/products").hasAnyRole("SUPERUSER", "READERUSER")
                 .antMatchers("/products/new", "/products/edit/**", "/products/delete/**").hasRole("SUPERUSER")
 

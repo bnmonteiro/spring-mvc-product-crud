@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @RequestMapping("/products")
@@ -61,13 +62,16 @@ public class ProductController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
+        if (id.equals(1L))
+            throw new NoSuchElementException();
+
         Product product = productService.findById(id);
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.findAll());
         return "product-form";
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteById(id);
         return "redirect:/products";
